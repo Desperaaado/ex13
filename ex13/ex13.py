@@ -5,29 +5,58 @@ class SLLNode(object):
 
     def __repr__(self):
         nxt = self.next and self.next.value or None
-        return f"{self.value}: {repr(nxt)}"
+        return f"=={self.value}: {repr(nxt)}=="
 
 class SLList(object):
     def __init__(self):
-        self.bigain = None
+        self.begin = None
         self.end = None
 
     def push(self, obj):
-        nxt = self.bigain
-        self.bigain = self.end
-        self.end = SLLNode(obj, nxt, None)
+        self.begin = self.end
+        self.end = SLLNode(obj, self.begin, None)
     
     def pop(self):
         result = self.end and self.end.value or None
-        self.end = self.bigain
-        self.bigain = self.bigain and self.bigain.next or None
+        self.end = self.end and self.end.next or None
+        self.begin = self.begin and self.begin.next or None
         return result
     
-    def shift(self):
-        pass
+    def shift(self, obj):
+        a = self.begin
+        b = self.end
+
+        while self.begin:
+            self.end = self.end and self.end.next or None
+            self.begin = self.begin.next
+
+        self.begin = SLLNode(obj, None, None)
+        self.end.next = self.begin
+
+        self.begin = a
+        self.end = b
 
     def unshift(self):
-        pass
+        the_end = self.end
+        the_begin = the_end and the_end.next or None
+
+        if the_begin:
+            
+            while self.begin.next:
+                self.end = self.end and self.end.next or None
+                self.begin = self.begin.next
+
+            self.end.next = None
+            result = self.begin.value
+            self.end = the_end
+            self.begin = the_end and the_end.next or None
+        elif the_end:
+            result = self.end.value
+            self.end = None
+        else:
+            result = None
+
+        return result
 
     def first(self):
         pass
@@ -36,7 +65,16 @@ class SLList(object):
         pass
 
     def dump(self):
-        pass
+        a = self.begin
+        b = self.end
+        i = 0
+        while self.end:
+            print(f'{i}===>', self.end)
+            self.end = self.end and self.end.next or None
+            self.begin = self.begin and self.begin.next or None
+            i += 1
+        self.begin = a
+        self.end = b
 
     def count(self):
         pass

@@ -15,3 +15,24 @@ def test_pop():
     assert colors.pop() == "Alizarin"
     assert colors.pop() == "Magenta"
     assert colors.pop() == None
+
+def test_unshift():
+    colors = SLList()
+    colors.push("Viridian")
+    colors.push("Sap Green")
+    colors.push("Van Dyke")
+    assert colors.unshift() == "Viridian"
+    assert colors.unshift() == "Sap Green"
+    assert colors.unshift() == "Van Dyke"
+    assert colors.unshift() == None
+
+# def test_shift():
+#     colors = SLList()
+#     colors.shift("Cadmium Orange")
+#     assert colors.count() == 1
+#     colors.shift("Carbazole Violet")
+#     assert colors.count() == 2
+#     assert colors.pop() == "Cadmium Orange"
+#     assert colors.count() == 1
+#     assert colors.pop() == "Carbazole Violet"
+#     assert colors.count() == 0
