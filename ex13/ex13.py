@@ -111,6 +111,22 @@ class SLList(object):
     def remove(self):
         pass
 
-    def get(self):
-        pass
+    def get(self, index):
+        max_range = self.count() - 1
+        
+        if index > max_range or max_range < 0:
+            print('Out of range!')
+            return None
+
+        the_end = self.end
+
+        for i in range(max_range - index):
+            self.end = self.end and self.end.next or None
+            self.begin = self.begin and self.begin.next or None
+
+
+        result = self.end and self.end.value or None
+        self.end = the_end
+        self.begin = self.end and self.end.next or None
+        return result
      
