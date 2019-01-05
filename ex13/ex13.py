@@ -72,9 +72,11 @@ class SLList(object):
         a = self.begin
         b = self.end
         i = 0
-        
+        the_list = []
+
         while self.end:
             print(f'{i}===>', self.end)
+            the_list.append(self.end.value)
             self.end = self.end and self.end.next or None
             self.begin = self.begin and self.begin.next or None
             i += 1
@@ -82,6 +84,7 @@ class SLList(object):
         print("==That's all.==")
         self.begin = a
         self.end = b
+        return the_list[::-1]
 
     def count(self):
         a = self.begin
@@ -108,8 +111,27 @@ class SLList(object):
 
         return i
 
-    def remove(self):
-        pass
+    def remove(self, obj):
+        the_list = self.dump()
+
+        if not(obj in the_list):
+            print('Not exist!')
+            return None
+
+        if self.end.value == obj:
+            return self.pop()
+
+        the_end = self.end
+
+        while self.begin.value != obj:
+            self.end = self.end and self.end.next or None
+            self.begin = self.begin and self.begin.next or None
+
+        self.end.next = self.begin.next
+        self.end = the_end
+
+        return obj
+        
 
     def get(self, index):
         max_range = self.count() - 1
