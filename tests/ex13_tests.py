@@ -37,33 +37,36 @@ def test_shift():
     assert colors.pop() == "Carbazole Violet"
     assert colors.count() == 0
 
-# def test_remove():
-    # colors = SingleLinkedList()
-    # colors.push("Cobalt")
-    # colors.push("Zinc White")
-    # colors.push("Nickle Yellow")
-    # colors.push("Perinone")
-    # assert colors.remove("Cobalt") == 0
+def test_remove():
+    colors = SLList()
+    colors.push("Cobalt")
+    colors.push("Zinc White")
+    colors.push("Nickle Yellow")
+    colors.push("Perinone")
+    assert colors.remove("Cobalt") == 0
     # colors.dump("before perinone")
-    # assert colors.remove("Perinone") == 2
+    assert colors.remove("Perinone") == 2
     # colors.dump("after perinone")
-    # assert colors.remove("Nickle Yellow") == 1
-    # assert colors.remove("Zinc White") == 0
-# def test_first():
-    # colors = SingleLinkedList()
-    # colors.push("Cadmium Red Light")
-    # assert colors.first() == "Cadmium Red Light"
-    # colors.push("Hansa Yellow")
-    # assert colors.first() == "Cadmium Red Light"
-    # colors.shift("Pthalo Green")
-    # assert colors.first() == "Pthalo Green"
-# def test_last():
-    # colors = SingleLinkedList()
-    # colors.push("Cadmium Red Light")
-    # assert colors.last() == "Cadmium Red Light"
-    # colors.push("Hansa Yellow")
-    # assert colors.last() == "Hansa Yellow"
-    # colors.shift("Pthalo Green")
+    assert colors.remove("Nickle Yellow") == 1
+    assert colors.remove("Zinc White") == 0
+
+def test_first():
+    colors = SLList()
+    colors.push("Cadmium Red Light")
+    assert colors.first() == "Cadmium Red Light"
+    colors.push("Hansa Yellow")
+    assert colors.first() == "Cadmium Red Light"
+    colors.shift("Pthalo Green")
+    assert colors.first() == "Pthalo Green"
+
+def test_last():
+    colors = SLList()
+    colors.push("Cadmium Red Light")
+    assert colors.last() == "Cadmium Red Light"
+    colors.push("Hansa Yellow")
+    assert colors.last() == "Hansa Yellow"
+    colors.shift("Pthalo Green")
+    assert_equal(colors.last(), "Hansa Yellow")
     # assert colors.last() == "Hansa Yellow"
 
 def test_get():

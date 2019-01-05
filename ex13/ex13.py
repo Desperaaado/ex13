@@ -23,8 +23,7 @@ class SLList(object):
         return result
     
     def shift(self, obj):
-        a = self.begin
-        b = self.end
+        the_end = self.end
 
         while self.begin:
             self.end = self.end and self.end.next or None
@@ -34,8 +33,7 @@ class SLList(object):
 
         if self.end:
             self.end.next = self.begin
-            self.begin = a
-            self.end = b
+            self.end = the_end
         else:
             self.end = self.begin
             self.begin = None
@@ -46,12 +44,12 @@ class SLList(object):
 
         if the_begin:
             
-            while self.begin.next:
+            while self.begin and self.begin.next:
                 self.end = self.end and self.end.next or None
                 self.begin = self.begin.next
 
             self.end.next = None
-            result = self.begin.value
+            result = self.begin and self.begin.value
             self.end = the_end
             self.begin = the_end and the_end.next or None
         elif the_end:
@@ -63,25 +61,54 @@ class SLList(object):
         return result
 
     def first(self):
-        pass
+        un_shift = self.unshift()
+
+        if un_shift:
+            result = un_shift
+            self.shift(un_shift)
+        else:
+            result = None
+
+        return result
+
 
     def last(self):
-        pass
+        the_pop = self.pop()
 
-    def dump(self):
+        if the_pop:
+            result = the_pop
+            self.push(result)
+        else:
+            result = None
+
+        return result
+
+    def dump(self, text='Dump'):
+        silence = False
+
+        if text == '--silence':
+            silence = True
+
+        if not silence:
+            print(f'=={text}==')
+
         a = self.begin
         b = self.end
         i = 0
         the_list = []
 
         while self.end:
-            print(f'{i}===>', self.end)
+            if not silence:
+                print(f'{i}===>', self.end)
+
             the_list.append(self.end.value)
             self.end = self.end and self.end.next or None
             self.begin = self.begin and self.begin.next or None
             i += 1
         
-        print("==That's all.==")
+        if not silence:
+            print("==That's all.==")
+
         self.begin = a
         self.end = b
         return the_list[::-1]
@@ -112,25 +139,29 @@ class SLList(object):
         return i
 
     def remove(self, obj):
-        the_list = self.dump()
+        the_list = self.dump('--silence')
+        the_range = self.count() - 1
 
         if not(obj in the_list):
             print('Not exist!')
             return None
 
         if self.end.value == obj:
-            return self.pop()
+            self.pop()
+            return the_range
 
         the_end = self.end
+        i = 1
 
         while self.begin.value != obj:
+            i += 1
             self.end = self.end and self.end.next or None
             self.begin = self.begin and self.begin.next or None
 
         self.end.next = self.begin.next
         self.end = the_end
 
-        return obj
+        return the_range - i
         
 
     def get(self, index):
