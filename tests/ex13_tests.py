@@ -1,12 +1,12 @@
 from nose.tools import *
 from ex13.ex13 import *
 
-# def test_push():
-#     colors = SLList()
-#     colors.push("Pthalo Blue")
-#     assert colors.count() == 1
-#     colors.push("Ultramarine Blue")
-#     assert colors.count() == 2
+def test_push():
+    colors = SLList()
+    colors.push("Pthalo Blue")
+    assert colors.count() == 1
+    colors.push("Ultramarine Blue")
+    assert colors.count() == 2
 
 def test_pop():
     colors = SLList()
@@ -26,13 +26,15 @@ def test_unshift():
     assert colors.unshift() == "Van Dyke"
     assert colors.unshift() == None
 
-# def test_shift():
-#     colors = SLList()
-#     colors.shift("Cadmium Orange")
-#     assert colors.count() == 1
-#     colors.shift("Carbazole Violet")
-#     assert colors.count() == 2
-#     assert colors.pop() == "Cadmium Orange"
-#     assert colors.count() == 1
-#     assert colors.pop() == "Carbazole Violet"
-#     assert colors.count() == 0
+def test_shift():
+    colors = SLList()
+    colors.shift("Cadmium Orange")
+    assert colors.count() == 1
+    colors.shift("Carbazole Violet")
+    assert colors.count() == 2
+    assert colors.pop() == "Cadmium Orange"
+    assert colors.count() == 1
+    colors.dump()
+    assert colors.pop() == "Carbazole Violet"
+    colors.dump()
+    assert colors.count() == 0

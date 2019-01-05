@@ -31,10 +31,14 @@ class SLList(object):
             self.begin = self.begin.next
 
         self.begin = SLLNode(obj, None, None)
-        self.end.next = self.begin
 
-        self.begin = a
-        self.end = b
+        if self.end:
+            self.end.next = self.begin
+            self.begin = a
+            self.end = b
+        else:
+            self.end = self.begin
+            self.begin = None
 
     def unshift(self):
         the_end = self.end
@@ -68,16 +72,41 @@ class SLList(object):
         a = self.begin
         b = self.end
         i = 0
+        
         while self.end:
             print(f'{i}===>', self.end)
             self.end = self.end and self.end.next or None
             self.begin = self.begin and self.begin.next or None
             i += 1
+        
+        print("==That's all.==")
         self.begin = a
         self.end = b
 
     def count(self):
-        pass
+        a = self.begin
+        b = self.end
+
+        if b:
+            i = 1
+        else:
+            i = 0
+
+        while self.end:
+            # print(f'{i}===>', self.end)
+            self.end = self.end and self.end.next or None
+            self.begin = self.begin and self.begin.next or None
+            i += 1
+        
+        i -= 1
+        self.begin = a
+        self.end = b
+
+        # for empty list
+        if i < 0:
+            i += 1
+
+        return i
 
     def remove(self):
         pass
